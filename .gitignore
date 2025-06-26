@@ -1,0 +1,25 @@
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment variables
+.env
+
+# Virtual environments
+bio_venv/
+venv/
+.env/
+
+# IDE specific
+.vscode/
+.idea/
+
+# Jupyter Notebook checkpoints (如果有用)
+.ipynb_checkpoints/
+
+# Streamlit cloud build files (自動產生，可選)
+.streamlit/
+
+# Optional: Mac 系統垃圾檔
+.DS_Store

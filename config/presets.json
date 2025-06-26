@@ -1,0 +1,197 @@
+{
+    "SentinusAI - Protein Design Engine": [
+        // 抗體設計與優化
+        "Therapeutic Antibody Design",
+        "Antibody Discovery",
+        "Antibody Humanization",
+        "Affinity Maturation",
+        "Epitope Mapping",
+        "Immunogenicity Reduction",
+        "Binding Specificity Optimization",
+        "Off-target Toxicity Prediction",
+        "Fab", "IgG", "VHH", "scFv",
+        "ADC", "PDC", "Multi-specific Antibodies",
+
+        // 蛋白質與酵素工程
+        "Protein Engineering",
+        "De Novo Proteian Design",
+        "Protein Stability Optimization",
+        "Developability Prediction",
+        "Fusion Protein Engineering",
+        "Enzyme Optimization",
+        "Industrial Enzyme Design",
+        "Biocatalyst Efficiency",
+        "Catalytic Activity Enhancement",
+
+        // 疫苗與抗原設計
+        "Antigen Design",
+        "Vaccine Development",
+        "Vaccine Stability Enhancement",
+        "Epitope Prediction",
+        "mRNA Vaccine Optimization",
+
+        // 核心功能技術
+        "AI-Powered Protein Design",
+        "Multi-objective Optimization",
+        "Wet-lab Validated",
+        "No Structure Required",
+        "High-throughput Screening",
+        "Toxicity Screening",
+        "Therapeutic Protein Optimization",
+
+        // 決策者職稱
+        "Biopharma CTO",
+        "VP of Protein Sciences",
+        "Head of Biologics",
+        "Director of Antibody Discovery",
+        "Chief Scientific Officer",
+        "Director of Protein Engineering",
+        "VP of Biotherapeutics",
+        "VP of Vaccine Development",
+        "Director of Enzyme Engineering"
+    ],
+    "CellulaAI - Cell Programming AI Engine": [
+        // 關鍵應用領域
+        "Cell Therapy",
+        "CAR-T",
+        "NK Cell Therapy",
+        "Stem Cell Therapy",
+        "Regenerative Medicine",
+        "Tissue Engineering",
+        "Synthetic Biology",
+        "Biomanufacturing",
+        "Cell Line Development",
+        "Cell Phenotype Optimization",
+        "Cell Culture Scale-up",
+        
+        // 多組學與精準醫療
+        "Multi-omics",
+        "Genomics",
+        "Transcriptomics",
+        "Proteomics",
+        "Biomarker Discovery",
+        "Precision Medicine",
+        "Patient Stratification",
+
+        // AI 與自動化
+        "AI-driven Predictive Modeling",
+        "Automated Quality Control",
+        "High-throughput Screening",
+        "AI-powered Cell Engineering",
+        "Wet-lab Validated",
+        "Real-time Monitoring",
+        "Scalable Automation",
+        "Phenotypic Optimization",
+
+        // 製造與法規
+        "GMP Manufacturing",
+        "Batch Consistency",
+        "Process Optimization",
+        "Regulatory Compliance",
+
+        // 目標職位
+        "Chief Scientific Officer",
+        "VP of R&D",
+        "Director of Cell Therapy",
+        "Head of Biomanufacturing",
+        "Head of Cell Engineering",
+        "VP of Translational Medicine",
+        "Director of Process Development",
+        "Head of Stem Cell Platform",
+        "Director of Precision Medicine"
+    ],
+    "CarbonAI - Small Molecule Design Engine": [
+        // 核心技術與應用
+        "Small Molecule Drug Discovery",
+        "Lead Generation",
+        "Lead Optimization",
+        "De Novo Molecule Generation",
+        "Scaffold Hopping",
+        "Analog Expansion",
+        "Molecular Docking",
+        "Binding Pocket Detection",
+        "Target Selectivity",
+        "High-throughput Screening",
+        "Polypharmacology",
+        "Multi-target Drug Design",
+        "AI-powered ADME Prediction",
+        "Toxicity Prediction",
+        "DMPK Modeling",
+        "Drug-likeness Screening",
+        "Reagent Property Prediction",
+        "Physicochemical Optimization",
+        
+        // 領域/平台應用
+        "PROTAC Design",
+        "Protein Degradation",
+        "CNS Drug Discovery",
+        "Neurodegenerative Disease",
+        "Kinase Inhibitor",
+        "Hit-to-lead Workflow",
+        
+        // 潛在決策者職稱
+        "VP Medicinal Chemistry",
+        "DMPK Director",
+        "Head of Pharmacology",
+        "Director of Preclinical Development",
+        "Chief Scientific Officer",
+        "VP of Drug Discovery",
+        "Head of Chemistry",
+        "Lead Computational Chemist"
+    ],
+    "NatmolAI - Natural Molecule AI Engine": [
+        "Natural Product Screening",
+        "Nutraceutical R&D",
+        "Traditional Medicine Innovation",
+        "Green Chemistry Director"
+    ],
+    "SenseAI - RNA Design Engine": [
+        // 關鍵 RNA 類型與治療策略
+        "mRNA Therapeutics",
+        "siRNA Drug Design",
+        "mRNA Vaccine Design",
+        "Protein Replacement Therapy",
+        "RNA-based Therapies",
+        "RNA Therapeutics",
+
+        // 技術與功能（AI優化面）
+        "Codon Optimization",
+        "Codon Adaptation",
+        "UTR Optimization",
+        "5' UTR Design",
+        "3' UTR Design",
+        "Regulatory Element Prediction",
+        "Sequence Stability Enhancement",
+        "Chemical Modification of RNA",
+        "Modified Base Prediction",
+        "Immune Response Reduction",
+        "Off-target Effect Minimization",
+        "Inhibition Efficiency Evaluation",
+        "AI-powered RNA Design",
+        "Genome-wide Screening",
+        "High-throughput RNA Optimization",
+        "Expression Enhancement Models",
+        "AI-driven Toxicity Prediction",
+
+        // 特殊應用與挑戰
+        "Rare Disease RNA Therapy",
+        "Metabolic Disorder RNA Treatment",
+        "RNA Vaccine Clinical Manufacturing",
+        "siRNA Specificity Optimization",
+
+        // 目標職位關鍵詞
+        "VP RNA Biology",
+        "Head of RNA Therapeutics",
+        "Director of RNA Platform",
+        "Chief Scientific Officer",
+        "Director of mRNA Vaccine Development",
+        "Head of Nucleic Acid Therapeutics",
+        "VP Translational RNA Science"
+    ],
+    "BioSynthAI - Synthetic Biology Engine": [
+        "Synthetic Biology Startup",
+        "Metabolic Engineering Director",
+        "Industrial Enzyme Company",
+        "Fermentation Process Scientist"
+    ]
+}
