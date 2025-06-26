@@ -3,10 +3,23 @@ from urllib.parse import urlparse
 import requests
 from bs4 import BeautifulSoup
 import os
+import streamlit as st
 from dotenv import load_dotenv
-load_dotenv()
+
+try:
+    import streamlit as st
+    try:
+        SERPAPI_API_KEY = st.secrets["SERPAPI_API_KEY"]
+    except Exception:
+        SERPAPI_API_KEY = None
+except ImportError:
+    pass   
+
+if not SERPAPI_API_KEY:
+    load_dotenv()
+    SERPAPI_API_KEY = os.getenv("SERPAPI_API_KEY")
+
 print("🔐 SERPAPI_API_KEY loaded:", os.getenv("SERPAPI_API_KEY")[:4], "...")
-SERPAPI_API_KEY = os.getenv("SERPAPI_API_KEY")  
 def search_and_extract_links(query, num_results=100):
     print(f"Searching for: {query}")
     if not SERPAPI_API_KEY:

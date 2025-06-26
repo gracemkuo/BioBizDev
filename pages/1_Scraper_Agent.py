@@ -13,7 +13,7 @@ import os
 st.title("🔍 Biotech Contact Finder Agent")
 
 
-with open("presets.json", "r", encoding="utf-8") as f:
+with open("config/presets.json", "r", encoding="utf-8") as f:
     PRESET_KEYWORDS = json.load(f)
 
 service_line = st.selectbox(
@@ -21,7 +21,7 @@ service_line = st.selectbox(
     list(PRESET_KEYWORDS.keys()),
     key="service_line_select"
 )
-default_keywords = PRESET_KEYWORDS.get(service_line, [])
+default_keywords = PRESET_KEYWORDS.get(service_line, {}).get("keywords", [])
 selected_keywords = st.multiselect(
     "Keywords (edit, remove, or add new):",
     options=default_keywords,      # 提供建議選項
@@ -30,6 +30,8 @@ selected_keywords = st.multiselect(
     key="keyword_multiselect"
 )
 
+service_line_tags = PRESET_KEYWORDS.get(service_line, {}).get("tags", [])
+st.markdown(f"**Tags for this service line:** {', '.join(service_line_tags)}")
 
 
 if st.button("Start Search", key="start_search_button"):

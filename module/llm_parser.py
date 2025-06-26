@@ -1,16 +1,27 @@
 # app.py
 from bs4 import BeautifulSoup
+from dotenv import load_dotenv
 import openai
 import requests
 import streamlit as st
 import pandas as pd
 from module.search_agent import search_and_extract_links
-from dotenv import load_dotenv
-load_dotenv()
+import os
+
+try:
+    openai.api_key = st.secrets.get("OPENAI_API_KEY")
+except Exception:
+    openai.api_key = None
 
 
+if not openai.api_key:
+    load_dotenv()
+    openai.api_key = os.getenv("OPENAI_API_KEY")
 
-
+if not openai.api_key:
+    st.error("❌ OpenAI API Key not found in secrets or .env!")
+    st.stop()
+    
 def extract_contacts_from_links(links, context):
     contacts = []
 
