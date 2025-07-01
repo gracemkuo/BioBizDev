@@ -31,59 +31,52 @@ def extract_contacts_from_links(links, context):
             print(f"✅ Fetched: {url}, Status: {page.status_code}")
             soup = BeautifulSoup(page.content, "html.parser")
             text = soup.get_text(separator=" ", strip=True)[:3000]
-            
+
             prompt = f"""
-                        You are a biotech recruiter. Given the following HTML page text, extract up to 5 people profiles who may be decision makers.
+You are a biotech recruiter. Strictly output CSV format. No explanations, no apologies.
 
-                        For each person, provide:
-                        - Name (if available)
-                        - Job Title (if available)
-                        - Company Name (guess if not explicitly mentioned)
-                        - Email (if available)
-                        - Original Webpage URL (this link)
+For each person, provide:
+- Name (required)
+- Job Title (required)
+- Company Name (required)
+- Email (optional)
+- Original Webpage URL (required)
 
-                        Context: {context}
+Context: {context}
 
-                        HTML TEXT:
-                        {text}
+HTML TEXT:
+{text}
 
-                        Expected Output (CSV Format):
-                        Name, Title, Company, Email, URL
-                        """
+Expected Output (CSV Format):
+Name,Title,Company,Email,URL
+"""
 
             response = client.chat.completions.create(
                 model="gpt-4",
                 messages=[
-                    {"role": "system", "content": "You are a professional recruiter and contact extractor."},
+                    {"role": "system", "content": "You are a professional recruiter and contact extractor. Return only CSV output."},
                     {"role": "user", "content": prompt}
                 ]
             )
 
             answer = response.choices[0].message.content
             print(f"✅ LLM raw response from {url}:\n{answer}\n")
-            
+
             reader = csv.reader(StringIO(answer))
             for row in reader:
-                if len(row) >= 3:  # 至少有人名、title、company
-                    while len(row) < 5:
-                        row.append("N/A")
-                    contacts.append(row[:5])
+                # 判斷 row 至少有 3 欄，且內容非垃圾
+                if len(row) >= 3:
                     cleaned_row = [clean_text(c) for c in row[:5]]
                     if (
-                        not any(x.lower() in cleaned_row[0].lower() for x in ["name", "sorry", "provided", "template", "html"]) and
-                        cleaned_row[0] and cleaned_row[1]
+                        cleaned_row[0] and cleaned_row[1] and cleaned_row[2] and
+                        not any(x.lower() in cleaned_row[0].lower() for x in ["sorry", "html", "example", "provided", "template"])
                     ):
-                        contacts.append(cleaned_row)\
-            #                 except Exception as e:
-            # print(f"❌ Error parsing {url}: {e}")
-            # for line in answer.splitlines():
-            #     parts = [p.strip() for p in line.split(',')]
-            #     if len(parts) >= 5:
-            #         contacts.append(parts[:5])
+                        while len(cleaned_row) < 5:
+                            cleaned_row.append("N/A")
+                        contacts.append(cleaned_row)
 
         except Exception as e:
             print(f"❌ Error parsing {url}: {e}")
-
     if contacts:
         df = pd.DataFrame(contacts, columns=["Name", "Title", "Company", "Email", "URL"])
         df = df.drop_duplicates(subset=["Name", "Title", "Company"])

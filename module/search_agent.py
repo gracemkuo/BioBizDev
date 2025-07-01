@@ -69,4 +69,5 @@ def batch_search_and_collect_links(keywords, batch_size=10):
         batch_links = search_and_extract_links(batch_query, num_results=100)
         all_links.extend(batch_links)
         progress.progress((idx + 1) / total_batches)
+    all_links = list(dict.fromkeys(all_links))
     return all_links
