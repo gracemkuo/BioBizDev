@@ -1,7 +1,7 @@
 # 1_Scraper_Agent.py
 import streamlit as st
 import pandas as pd
-from module.search_agent import search_and_extract_links
+from module.search_agent import search_and_extract_links, batch_search_and_collect_links
 from module.llm_parser import extract_contacts_from_links
 import json
 from dotenv import load_dotenv
@@ -35,59 +35,62 @@ st.markdown(f"**Tags for this service line:** {', '.join(service_line_tags)}")
 
 
 if st.button("Start Search", key="start_search_button"):
-    st.info("Searching and analyzing results. Please wait...")
-    if not selected_keywords:
-        st.warning("Please provide at least one keyword.")
-    else:
-        search_query = " OR ".join(selected_keywords)
-        links = search_and_extract_links(search_query)
-
-        if not links:
-            st.warning("No search results found.")
-            results_df = pd.DataFrame() 
+    with st.spinner("🔍 Searching and analyzing results. Please wait..."):
+        if not selected_keywords:
+            st.warning("Please provide at least one keyword.")
         else:
-            results_df = extract_contacts_from_links(links, search_query)
-            st.success(f"Found {len(results_df)} potential contacts.")
-            for link in links:
-                st.write(link)
-            #st.stop() 
-            st.dataframe(results_df)
-            st.download_button("Download Results as CSV", results_df.to_csv(index=False), "contacts.csv", key="download_csv_button")
-        leads = []
-        for _, row in results_df.iterrows():
-                company_text = row.get("Description", "") 
-                matched_categories = []
-                for category, keywords in PRESET_KEYWORDS.items():
-                    if any(kw.lower() in company_text.lower() for kw in keywords):
-                        matched_categories.append(category)
-                leads.append({
-                    "company": row.get("Company", ""),
-                    "name": row.get("Name", ""),
-                    "title": row.get("Title", ""),
-                    "email": row.get("Email", ""),
-                    "linkedin": row.get("URL", ""),
-                    "matched_categories": matched_categories
-                })
+           
+            links = batch_search_and_collect_links(selected_keywords, batch_size=5)
 
-        leads_json = json.dumps(leads, indent=2)
-        file_name = f"leads_{service_line.replace(' ', '_').replace('-', '').lower()}.json"
-        st.download_button("Download Results as JSON", leads_json, file_name, key="download_json_button")
+            if not links:
+                st.warning("No search results found.")
+                results_df = pd.DataFrame() 
+            else:
+                results_df = extract_contacts_from_links(links,  " OR ".join(selected_keywords))
+                st.success(f"Found {len(results_df)} potential contacts.")
+                for link in links:
+                    st.write(link)
+                st.dataframe(results_df)
+            leads = []
+            for _, row in results_df.iterrows():
+                    company_text = row.get("Description", "") 
+                    matched_categories = []
+                    for category, keywords in PRESET_KEYWORDS.items():
+                        if any(kw.lower() in company_text.lower() for kw in keywords):
+                            matched_categories.append(category)
+                    leads.append({
+                        "company": row.get("Company", ""),
+                        "name": row.get("Name", ""),
+                        "title": row.get("Title", ""),
+                        "email": row.get("Email", ""),
+                        "linkedin": row.get("URL", ""),
+                        "matched_categories": matched_categories
+                    })
+            cleaned_leads = []
+            seen = set()
 
+            for lead in leads:
+                name = lead.get("name", "").strip()
+                title = lead.get("title", "").strip()
+                company = lead.get("company", "").strip()
 
-# Example output leads.json structure
-# This is a mockup of what the output might look like based on the provided context.
-        # [
-        #     {
-        #         "company_name": "Genomex Biotech",
-        #         "industry_tags": ["Cell Therapy", "Precision Medicine"],
-        #         "category": "CellulaAI - Cell Therapy & Biomanufacturing",
-        #         "contacts": [
-        #         {
-        #             "name": "Dr. Alice Wang",
-        #             "title": "VP of R&D",
-        #             "role": "Scientific Decision Maker",
-        #             "linkedin": "https://linkedin.com/in/alicewang"
-        #         }
-        #         ]
-        #     }
-        # ]
+                # 跳過明顯錯誤/空白資料
+                if not name or not title:
+                    continue
+                if "no contact details" in name.lower() or "html text" in name.lower() or "provided" in name.lower():
+                    continue
+                if "there is no mention" in name.lower() or "csv format" in name.lower():
+                    continue
+
+                # 用 company+name+title 做唯一 key 去重
+                unique_key = f"{company}_{name}_{title}"
+                if unique_key in seen:
+                    continue
+                seen.add(unique_key)
+                cleaned_leads.append(lead)
+
+            leads_json = json.dumps(cleaned_leads, indent=2)
+
+            file_name = f"leads_{service_line.replace(' ', '_').replace('-', '').lower()}.json"
+            st.download_button("Download Results as JSON", leads_json, file_name, key="download_json_button")
+
