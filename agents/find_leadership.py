@@ -125,6 +125,6 @@ Return the result clearly with bullet points.
     print("📦 Parsed:", parsed)
     return parsed
 
-if __name__ == "__main__":
-    # 🧪 測試執行：輸入公司名稱與官網網址
-    find_leadership_contact("NKGen Biotech")
+# if __name__ == "__main__":
+#     # 🧪 測試執行：輸入公司名稱與官網網址
+#     find_leadership_contact("NKGen Biotech")
