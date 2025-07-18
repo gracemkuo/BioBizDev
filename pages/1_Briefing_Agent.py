@@ -7,7 +7,7 @@ st.set_page_config(page_title="🧠 Strategic Briefing Generator", layout="wide"
 st.title("📊 Biotech Company Briefing Agent")
 st.markdown("Enter the company name to automatically generate a strategic briefing and outreach recommendations.")
 
-company_name = st.text_input("Company Name", placeholder="例如：AbbVie Inc.")
+company_name = st.text_input("Company Name", placeholder="Example：NKGen Biotech")
 
 
 if st.button("🚀 Generate Briefing"):

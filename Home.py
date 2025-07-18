@@ -20,13 +20,13 @@ Please use the sidebar to navigate through the available agents.
 
 ---
 
-### 🔗 2. CRM Sync Agent - *CRM Integration & Automation*
-- **Input**: Leads and outreach content
-- **Technology**: Pipedrive API + Webhooks + Cron jobs
+### 🔗 2. CRM Organized Agent - *CRM Integration & Automation*
+- **Input**: Leads and outreach progress
+- **Technology**: Streamlit + Pandas + Google Calendar API
 - **Function**:
-    - Sync leads and deals
-    - Attach message history
-    - Advance pipeline stages
+    - Add, edit, delete client records
+    - Track pipeline stages
+    - Sync with Google Calendar for meetings
 
 ---
 
